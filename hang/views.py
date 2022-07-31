@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+# from django.views import View # This was used in the docs, both work
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Word, Category
