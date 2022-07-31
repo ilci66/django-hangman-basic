@@ -4,7 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hangman</title>
+    <style>
+        *, *::after, *::before {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: azure;
+            align-items: center;
+            justify-content: center;
+        }
+        nav {
+            width: 100%;
+            background-color: aqua;
+            margin-bottom: auto;
+            padding: 15px 30px;
+        }
+        footer {
+            background-color: cadetblue;
+            margin-top: auto;
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
     {% include "nav.html" %}

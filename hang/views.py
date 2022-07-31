@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Word, Category
@@ -28,3 +29,27 @@ def index(request):
     # return HttpResponse("Eyy, it be workin")
 
     return render(request, 'hang/home.html', context)
+
+def words(request):
+
+    context = {}
+
+    return render(request, 'hang/words.html', context)
+
+
+def categories(request):
+
+    context = {}
+
+    return render(request, 'hang/categories.html', context)
+
+
+class TestView(TemplateView):
+    template_name = "test"
+
+    # def get(self) -> HttpResponse:
+    #     return HttpResponse("tecrübe")
+
+
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        return render(request, 'hang/test.html')
