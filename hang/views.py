@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Word, Category
+from .forms import WordForm, CategoryForm
 
 
 categories = [
@@ -24,25 +25,25 @@ word = [
 ]
 
 # Create your views here.
-def index(request):
+# def index(request):
 
-    context = {}
-    # return HttpResponse("Eyy, it be workin")
+#     context = {}
+#     # return HttpResponse("Eyy, it be workin")
 
-    return render(request, 'hang/home.html', context)
+#     return render(request, 'hang/home.html', context)
 
-def words(request):
+# def words(request):
 
-    context = {}
+#     context = {}
 
-    return render(request, 'hang/words.html', context)
+#     return render(request, 'hang/words.html', context)
 
 
-def categories(request):
+# def categories(request):
 
-    context = {}
+#     context = {}
 
-    return render(request, 'hang/categories.html', context)
+#     return render(request, 'hang/categories.html', context)
 
 
 class TestView(TemplateView):
@@ -54,3 +55,25 @@ class TestView(TemplateView):
 
     def get(self, request, *args, **kwargs) -> HttpResponse:
         return render(request, 'hang/test.html')
+
+
+class HomeView(TemplateView):
+    template_name = "home"
+    context = {}
+    def get(self, request, *args, **kwargs):
+        return render(request, 'hang/home.html', {"name": "name"})
+
+
+class WordsView(TemplateView):
+    template_name = "words"
+    # content = {}
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'hang/words.html')
+
+class CategoriesView(TemplateView):
+    template_name = "categories"
+    context = {}
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'hang/categories.html')
