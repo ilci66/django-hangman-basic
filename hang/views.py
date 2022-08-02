@@ -73,7 +73,11 @@ class WordsView(TemplateView):
 
 class CategoriesView(TemplateView):
     template_name = "categories"
-    context = {}
+    
+
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'hang/categories.html')
+        form = CategoryForm()
+        context = {'form': form}
+
+        return render(request, 'hang/categories.html', context)

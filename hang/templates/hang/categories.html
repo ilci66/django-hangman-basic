@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
 Gonna lists the categories here and add a form
-
+{% csrf_token %}
+{{form}}
 {% endblock %}
