@@ -8,23 +8,23 @@ from .models import Word, Category
 from .forms import WordForm, CategoryForm
 import random
 
-categories = [
-    {'id': 1, 'name': 'food'},
-    {'id': 2, 'name': 'profession'},
-    {'id': 3, 'name': 'animal'},
-    {'id': 4, 'name': 'family'},
-]
+# categories = [
+#     {'id': 1, 'name': 'foodd'},
+#     {'id': 2, 'name': 'profession'},
+#     {'id': 3, 'name': 'animal'},
+#     {'id': 4, 'name': 'family'},
+# ]
 
-words = [
-    {'id': 1, 'category': 1, 'text': 'hamburger'},
-    {'id': 2, 'category': 1, 'text': 'watermellon'},
-    {'id': 3, 'category': 2, 'text': 'teacher'},
-    {'id': 4, 'category': 2, 'text': 'engineer'},
-    {'id': 5, 'category': 3, 'text': 'lion'},
-    {'id': 6, 'category': 3, 'text': 'mouse'},
-    {'id': 7, 'category': 4, 'text': 'father'},
-    {'id': 8, 'category': 4, 'text': 'son'},
-]
+# words = [
+#     {'id': 1, 'category': 1, 'text': 'hamburger'},
+#     {'id': 2, 'category': 1, 'text': 'watermellon'},
+#     {'id': 3, 'category': 2, 'text': 'teacher'},
+#     {'id': 4, 'category': 2, 'text': 'engineer'},
+#     {'id': 5, 'category': 3, 'text': 'lion'},
+#     {'id': 6, 'category': 3, 'text': 'mouse'},
+#     {'id': 7, 'category': 4, 'text': 'father'},
+#     {'id': 8, 'category': 4, 'text': 'son'},
+# ]
 
 class TestView(TemplateView):
     template_name = "test"
@@ -37,27 +37,40 @@ class HomeView(TemplateView):
     template_name = "home"
 
     def get(self, request, *args, **kwargs):
+        categories = Category.objects.all()
+        print("categories 00>>", categories)
         context = {'categories': categories}
         return render(request, 'hang/home.html', context)
 
 
 class WordsView(TemplateView):
     template_name = "words"
-    
-    words = Word.objects
+    form_class = WordForm
 
     def get(self, request, *args, **kwargs):
+        words = Word.objects.all()
         form = WordForm()
         context = { 'words_list': words, 'form': form }
         return render(request, 'hang/words.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        
+        if form.is_valid():
+            word = form.save()
+
+            word.text = word.text.lower()
+            word.save()
+
+            return HttpResponseRedirect('/words')
 
 
 class CategoriesView(TemplateView):
     template_name = "categories"
     form_class = CategoryForm
-    categories = Category.objects
 
     def get(self, request, *args, **kwargs):
+        categories = Category.objects.all()
         form = CategoryForm()
         context = {'form': form, 'categories': categories}
         return render(request, 'hang/categories.html', context)
@@ -83,9 +96,9 @@ class CategoriesView(TemplateView):
 
 class WordView(DetailView):
     template_name = "word-picked"
-
+    
     def get(self, request, *args, **kwargs):
-                
+        words = Word.objects.all()
         filtered_categories = list(filter(lambda x: kwargs["id"]== x["category"], words))
         random_word = random.choice(filtered_categories)
         context = {'random_word': random_word}
