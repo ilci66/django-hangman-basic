@@ -2,4 +2,20 @@
 {% block content %}
 Gonna lists the words here and add a form
 
+{% if words_list %}
+<ul>
+    {% for word in words_list %}
+    <li>
+        {{ word }}
+        <button>Edit</button>
+        <button>Delete</button>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Create Word">
+</form>
 {% endblock %}

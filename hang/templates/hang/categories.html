@@ -1,6 +1,21 @@
 {% extends "main.html" %}
 {% block content %}
-Gonna lists the categories here and add a form
-{% csrf_token %}
-{{form}}
-{% endblock %}
+<h2 class="title">Categories</h2>
+{% if categories %}
+<ul>
+    {% for category in categories %}
+    <li>
+        {{category.name}} 
+        <button>Edit</button>
+        <button>Delete</button>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endif %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Create Category">
+</form>
+{% endblock %}  

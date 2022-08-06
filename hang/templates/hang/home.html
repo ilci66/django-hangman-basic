@@ -1,5 +1,13 @@
 {% extends "main.html" %}
 {% block content %}
-    <h2>Home page</h2>
+
+
+<h2>Home page</h2>
+
+{% for c in categories %}
+    <a href="/{{c.id}}">{{c.name}}</a>
+{% endfor %}
+
+
 
 {% endblock %}
