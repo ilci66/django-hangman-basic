@@ -84,8 +84,6 @@ class CategoriesView(TemplateView):
         if form.is_valid():
 
             category = form.save()
-            
-            print("category ==Z  ",category)
 
             category.name = category.name.lower()
             category.save()
@@ -120,7 +118,6 @@ class CategoryDeleteView(DetailView):
     def get(self, request, *args, **kwargs):
         category = Category.objects.get(id=kwargs["id"])
         context = {'category': category}
-        print("Ask if they wanna delete this => ", kwargs["id"])
         return render(request, 'hang/category-delete.html', context)
     
     def post(self, request, *args, **kwargs):
@@ -129,7 +126,31 @@ class CategoryDeleteView(DetailView):
             category = Category.objects.get(id=kwargs["id"])
             category.delete()
             return HttpResponseRedirect('/categories')
-            
+
+
+class CategoryEditView(DetailView):
+    template_name = "category-edit"
+    form_class = CategoryForm
+
+    def get(self, request, *args, **kwargs):
+        category = Category.objects.get(id=kwargs["id"])
+        form = self.form_class(instance=category)
+
+        print("form ==> ", form )
+        
+        context = {'form': form}
+        return render(request, 'hang/category-edit.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid:
+            category = form.save()
+
+            category.name = category.name.lower()
+            category.save()
+
+            return HttpResponseRedirect('/')            
+
 
 class WordView(DetailView):
     template_name = "word-picked"

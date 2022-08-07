@@ -6,7 +6,7 @@
     {% for category in categories %}
     <li>
         {{category.name}} 
-        <button>Edit</button>
+        <a href="/category/{{category.id}}/edit">Edit</a>
         <a href="/category/{{category.id}}/delete">Delete</a>
     </li>
     {% endfor %}
