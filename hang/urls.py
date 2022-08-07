@@ -1,5 +1,5 @@
 from django.urls import path, include
-from hang.views import CategoriesView, HomeView, TestView, WordDeleteView, WordView, WordsView
+from hang.views import CategoriesView, CategoryDeleteView, HomeView, TestView, WordDeleteView, WordView, WordsView
 from . import views
 
 app_name = 'hang'
@@ -14,4 +14,5 @@ urlpatterns = [
     path('words/', WordsView.as_view(template_name="words")),
     path('words/<int:id>/delete', WordDeleteView.as_view(template_name="word-delete")),
     path('categories/', CategoriesView.as_view(template_name="categories")),
+    path('category/<int:id>/delete', CategoryDeleteView.as_view(template_name="category-delete"))
 ]

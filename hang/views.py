@@ -101,9 +101,7 @@ class WordDeleteView(DetailView):
     def get(self, request, *args, **kwargs):
         word = Word.objects.get(id=kwargs["id"])
         context = {'word': word}
-        print("Ask if they wanna delete this => ", kwargs["id"])
 
-        print("context => ",context["word"])
         return render(request, 'hang/word-delete.html', context)
 
     def post(self, request, *args, **kwargs):
@@ -116,7 +114,22 @@ class WordDeleteView(DetailView):
 
 
 class CategoryDeleteView(DetailView):
-    pass
+    template_name = "category-delete"
+    form_class = CategoryForm
+
+    def get(self, request, *args, **kwargs):
+        category = Category.objects.get(id=kwargs["id"])
+        context = {'category': category}
+        print("Ask if they wanna delete this => ", kwargs["id"])
+        return render(request, 'hang/category-delete.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid:
+            category = Category.objects.get(id=kwargs["id"])
+            category.delete()
+            return HttpResponseRedirect('/categories')
+            
 
 class WordView(DetailView):
     template_name = "word-picked"
