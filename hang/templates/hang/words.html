@@ -7,8 +7,8 @@ Gonna lists the words here and add a form
     {% for word in words_list %}
     <li>
         {{ word }}
-        <button>Edit</button>
-        <button>Delete</button>
+        <a href="/words/{{word.id}}/edit">Edit</a>
+        <a href="/words/{{word.id}}/delete">Delete</a>
     </li>
     {% endfor %}
 </ul>

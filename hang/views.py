@@ -94,6 +94,30 @@ class CategoriesView(TemplateView):
             return HttpResponseRedirect('/')
 
 
+class WordDeleteView(DetailView):
+    template_name = "word-delete"
+    form_class = WordForm
+
+    def get(self, request, *args, **kwargs):
+        word = Word.objects.get(id=kwargs["id"])
+        context = {'word': word}
+        print("Ask if they wanna delete this => ", kwargs["id"])
+
+        print("context => ",context["word"])
+        return render(request, 'hang/word-delete.html', context)
+
+    def post(self, request, *args, **kwargs):
+        print("wanna delete this => ", kwargs["id"])
+        form = self.form_class(request.POST)
+        if form.is_valid:
+            word = Word.objects.get(id=kwargs["id"])
+            word.delete()
+            return HttpResponseRedirect('/words/')
+
+
+class CategoryDeleteView(DetailView):
+    pass
+
 class WordView(DetailView):
     template_name = "word-picked"
     
