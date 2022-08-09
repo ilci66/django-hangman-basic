@@ -136,20 +136,44 @@ class CategoryEditView(DetailView):
         category = Category.objects.get(id=kwargs["id"])
         form = self.form_class(instance=category)
 
-        print("form ==> ", form )
+        print("form ==> ", form)
         
         context = {'form': form}
         return render(request, 'hang/category-edit.html', context)
     
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        category = Category.objects.get(id=kwargs["id"])
+        form = self.form_class(request.POST, instance=category)
         if form.is_valid:
             category = form.save()
 
             category.name = category.name.lower()
             category.save()
 
-            return HttpResponseRedirect('/')            
+            return HttpResponseRedirect('/categories/')            
+
+
+class WordEditView(DetailView):
+    template_name = "word-edit"
+    form_class = WordForm
+
+    def get(self, request, *args, **kwargs):
+        word = Word.objects.get(id=kwargs["id"])
+        form = self.form_class(instance=word)
+
+        context = {'form': form}
+        return render(request, 'hang/word-edit.html', context)
+    
+    def post(self, request, *args, **kwargs):
+        word = Word.objects.get(id=kwargs["id"])
+        form = self.form_class(request.POST, instance=word)
+        if form.is_valid:
+            word = form.save()
+
+            word.text = word.text.lower()
+            word.save()
+
+            return HttpResponseRedirect('/words/')            
 
 
 class WordView(DetailView):
