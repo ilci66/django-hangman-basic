@@ -38,7 +38,6 @@ class HomeView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
-        print("categories 00>>", categories)
         context = {'categories': categories}
         return render(request, 'hang/home.html', context)
 
@@ -180,8 +179,11 @@ class WordView(DetailView):
     template_name = "word-picked"
     
     def get(self, request, *args, **kwargs):
-        words = Word.objects.all()
-        filtered_categories = list(filter(lambda x: kwargs["id"]== x["category"], words))
-        random_word = random.choice(filtered_categories)
+
+        words = Word.objects.filter(category=kwargs["id"])
+
+        random_word = random.choice(words)
+
         context = {'random_word': random_word}
+
         return render(request, 'hang/word.html', context)

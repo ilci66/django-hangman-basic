@@ -4,10 +4,6 @@ from . import views
 
 app_name = 'hang'
 urlpatterns = [
-    # path('', views.index, name="home"),
-    # path('words/', views.words, name="words"),
-    # path('categories/', views.categories, name="categories"),
-    # path('test/', TestView.as_view(template_name="test"))
     path('category/<int:id>/', WordView.as_view(template_name='word-picked')),
     path('', HomeView.as_view(template_name="home")),
     path('test/', TestView.as_view(template_name='test')),
