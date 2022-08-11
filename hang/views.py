@@ -184,6 +184,8 @@ class WordView(DetailView):
 
         random_word = random.choice(words)
 
+        # print("I want the text => ", random_word["text"])
+
         context = {'random_word': random_word}
 
         return render(request, 'hang/word.html', context)
