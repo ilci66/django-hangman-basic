@@ -182,7 +182,15 @@
                 errCount += 1
                 console.log("err count => ", errCount)
                 hangmanImg = document.querySelector('.hangman-img')
-                hangmanImg.src = `"{% static 'hang/hangman-${errCount}.png' %}"`  
+                let str = undefined
+                if(errCount===1) str = "{% static 'hang/hangman-2.png' %}"
+                if(errCount===2) str = "{% static 'hang/hangman-3.png' %}"
+                if(errCount===3) str = "{% static 'hang/hangman-4.png' %}"
+                if(errCount===4) str = "{% static 'hang/hangman-5.png' %}"
+                if(errCount===5) str = "{% static 'hang/hangman-6.png' %}"
+                if(errCount===6) str = "{% static 'hang/hangman-7.png' %}"
+                  
+                hangmanImg.src = str
             }
 
         }else if(e.target === displayBtn) {
