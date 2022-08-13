@@ -1,12 +1,24 @@
 {% extends "main.html" %}
 {% block content %}
+{% load static %}
 <style>
+    .content-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin: 20px 0px;
+    }
     .word-container {
         display:flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        margin: 0 auto;
+    }
+    .word-display-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
     }
     .letter-container {
         position: relative;
@@ -17,7 +29,7 @@
         margin: 10px;
         min-width: 50px;
         text-align: center;
-        opacity: 0.5;
+        opacity: 0.1;
     }
     .bottom-line {
         content: "";
@@ -29,77 +41,166 @@
         left: 0;
         margin-top: 10px;
     }
-    .red-btn{
-        background-color: red;
+    .display-word {
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: aqua;
+        margin: auto 20px auto 0;
+    }
+    .display-btn{
+        background-color: aqua;
+        border-radius: 15px;
+        padding: 15px 30px;
+        font-size: 1.6rem;
+        transition: 0.3s;
+        border: none;
+        margin-right: 50px;
     }
     ul {
         list-style-type: none;
         display: flex;
         flex-wrap: wrap;
     }
-    li {
+    .active {
         margin: 10px;
-        background-color: aqua;
         padding: 10px;
         transition: 0.3s;
         border-radius: 10px;
+        background-color: aqua;
     }
-    li:hover{
+    .passive {
+        margin: 10px;
+        padding: 10px;
+        transition: 0.3s;
+        border-radius: 10px;
+        background-color: darkgray;
+    }
+    .display-btn:hover, .active:hover{
         background-color: navy;
         color: white;
         cursor: pointer;
         transform: scale(1.2);
     }
 </style>
-
-
-<h2>{{ random_word.text }} -- {{ random_word.text | length }}</h2>
-<button class="red-btn">click</button>
-<div class="word-container">
-    {% for l in random_word.text %}
-    <div class="letter-container">
-        <p class="letter-box">{{l}}</p>
-        <span class="bottom-line"></span>
+<div class="word-display-container">
+    <p style="opacity: 0;" class="display-word">{{ random_word.text }}</p>
+    <button class="display-btn">Show</button>
+</div>
+<div class="content-flex">
+    <div class="word-container">
+        {% for l in random_word.text %}
+        <div class="letter-container">
+            <p style="text-transform: uppercase;" class="letter-box {{l}}">{{l}}</p>
+            <span class="bottom-line"></span>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
+    <img class="hangman-img" src="{% static 'hang/hangman-1.png' %}" alt="Hangman image">
 </div>
 <ul>
-    <li class="a-btn">A</li>
-    <li class="b-btn">B</li>
-    <li class="c-btn">C</li>
-    <li class="d-btn">D</li>
-    <li class="e-btn">E</li>
-    <li class="f-btn">F</li>
-    <li class="g-btn">G</li>
-    <li class="h-btn">H</li>
-    <li class="i-btn">I</li>
-    <li class="j-btn">J</li>
-    <li class="k-btn">K</li>
-    <li class="l-btn">L</li>
-    <li class="m-btn">M</li>
-    <li class="n-btn">N</li>
-    <li class="o-btn">O</li>
-    <li class="p-btn">P</li>
-    <li class="q-btn">Q</li>
-    <li class="r-btn">R</li>
-    <li class="s-btn">S</li>
-    <li class="t-btn">T</li>
-    <li class="u-btn">U</li>
-    <li class="v-btn">V</li>
-    <li class="w-btn">W</li>
-    <li class="x-btn">X</li>
-    <li class="y-btn">Y</li>
-    <li class="z-btn">Z</li>
+    <li id="a" class="a-btn active ltr-btn">A</li>
+    <li id="b" class="b-btn active ltr-btn">B</li>
+    <li id="c" class="c-btn active ltr-btn">C</li>
+    <li id="d" class="d-btn active ltr-btn">D</li>
+    <li id="e" class="e-btn active ltr-btn">E</li>
+    <li id="f" class="f-btn active ltr-btn">F</li>
+    <li id="g" class="g-btn active ltr-btn">G</li>
+    <li id="h" class="h-btn active ltr-btn">H</li>
+    <li id="i" class="i-btn active ltr-btn">I</li>
+    <li id="j" class="j-btn active ltr-btn">J</li>
+    <li id="k" class="k-btn active ltr-btn">K</li>
+    <li id="l" class="l-btn active ltr-btn">L</li>
+    <li id="m" class="m-btn active ltr-btn">M</li>
+    <li id="n" class="n-btn active ltr-btn">N</li>
+    <li id="o" class="o-btn active ltr-btn">O</li>
+    <li id="p" class="p-btn active ltr-btn">P</li>
+    <li id="q" class="q-btn active ltr-btn">Q</li>
+    <li id="r" class="r-btn active ltr-btn">R</li>
+    <li id="s" class="s-btn active ltr-btn">S</li>
+    <li id="t" class="t-btn active ltr-btn">T</li>
+    <li id="u" class="u-btn active ltr-btn">U</li>
+    <li id="v" class="v-btn active ltr-btn">V</li>
+    <li id="w" class="w-btn active ltr-btn">W</li>
+    <li id="x" class="x-btn active ltr-btn">X</li>
+    <li id="y" class="y-btn active ltr-btn">Y</li>
+    <li id="z" class="z-btn active ltr-btn">Z</li>
 </ul>
 
 
 <script>
-    const btn = document.querySelector('.red-btn')
+    let errCount = 0;
+    let wordVisibility = false;
+
+    // const btn = document.querySelector('.red-btn')
+    const word = document.querySelector('.display-word').textContent
+    const displayBtn = document.querySelector('.display-btn')
+    const hangmanContainer = document.querySelector('.hangman-container')
+
+    // hangmanContainer.style.backgroundImage = "url('assets/hangman-1.png')";
+
+    const wordLetters = word.split("")
+    console.log(wordLetters)
+    
     window.addEventListener('click', (e) => {
-        console.log(random_word.text)
-        if(e.target===btn){
-            btn.style.backgroundColor = "blue";
+        
+        if(e.target.classList.contains('ltr-btn')){
+
+            e.target.classList.add('passive')
+            e.target.classList.remove('active')
+
+            console.log("err count =Z ", errCount)
+
+            if(errCount >= 6) window.alert("you failed yo!")
+
+            // else {
+
+                // errCount += 1
+                // console.log("err count => ", errCount)
+                // hangmanImg = document.querySelector('.hangman-img')
+                // hangmanImg.src = `"{% static 'hang/hangman-${errCount}.png' %}"`
+            // }
+
+            let found = false;
+            wordLetters.forEach(l => {
+
+                if(e.target.id === l){
+                    
+                    console.log("matched")
+                    
+                    if(!found) found = true;
+
+                    console.log("selected all => ",document.querySelectorAll(l))
+                    
+                    document.querySelectorAll(`.${l}`).forEach(x => {
+                        x.style.opacity = "1";
+                    })
+                }
+            })
+            
+            if(!found){
+                errCount += 1
+                console.log("err count => ", errCount)
+                hangmanImg = document.querySelector('.hangman-img')
+                hangmanImg.src = `"{% static 'hang/hangman-${errCount}.png' %}"`  
+            }
+
+        }else if(e.target === displayBtn) {
+            let displayWord = document.querySelector('.display-word')
+            if(wordVisibility){
+                wordVisibility = false;
+                displayBtn.textContent = "Show"
+                displayWord.style.opacity = 0
+            } else {
+                wordVisibility = true;
+                displayBtn.textContent = "Hide"
+                displayWord.style.opacity = 1
+            }
         }
+        
     })
+
+    // const listItems = document.querySelectorAll('li')
+
 </script>
 {% endblock %}
