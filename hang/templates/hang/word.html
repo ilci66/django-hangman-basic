@@ -29,7 +29,7 @@
         margin: 10px;
         min-width: 50px;
         text-align: center;
-        opacity: 0.1;
+        opacity: 0;
     }
     .bottom-line {
         content: "";
@@ -151,7 +151,7 @@
 
             console.log("err count =Z ", errCount)
 
-            if(errCount >= 6) window.alert("you failed yo!")
+            if(errCount >= 6) {window.alert("you failed yo!"); location.reload() }
 
             // else {
 
@@ -170,7 +170,7 @@
                     
                     if(!found) found = true;
 
-                    console.log("selected all => ",document.querySelectorAll(l))
+                    console.log("selected all => ",document.querySelectorAll(`.${l}`))
                     
                     document.querySelectorAll(`.${l}`).forEach(x => {
                         x.style.opacity = "1";
