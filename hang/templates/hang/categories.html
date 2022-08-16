@@ -1,21 +1,58 @@
 {% extends "main.html" %}
 {% block content %}
-<h2 class="title">Categories</h2>
+<style>
+    .categories-title {
+        font-size: 2.4rem;
+        margin-bottom: 20px;
+    }
+    .categories-ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .cat-li {
+        margin: 6px 0;
+        border-bottom: 2px solid lightgray;
+        display: flex;
+    }
+    .right-align {
+        margin-left: auto;
+        margin-right: 6px;
+    }
+    .category-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+    .category-submit-btn {
+        width: 100%;
+        margin-top: 8px;
+        border: none;
+        padding: 14px 18px;
+        background-color: blueviolet;
+        color: antiquewhite;
+        font-size: 1.8rem;
+    }
+    .category-submit-btn:hover {
+        cursor: pointer;
+    }
+</style>
+<h2 class="categories-title">Categories</h2>
 {% if categories %}
-<ul>
+<ul class="categories-ul">
     {% for category in categories %}
-    <li>
+    <li class="cat-li">
         {{category.name}} 
-        <a href="/category/{{category.id}}/edit">Edit</a>
-        <a href="/category/{{category.id}}/delete">Delete</a>
+        <a class="right-align" href="/category/{{category.id}}/edit">Edit</a>
+        <a class="category-submit-button" href="/category/{{category.id}}/delete">Delete</a>
     </li>
     {% endfor %}
 </ul>
 
 {% endif %}
-<form action="" method="post">
+<form class="category-form" action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Create Category">
+    <input class="category-submit-btn" type="submit" value="Create Category">
 </form>
 {% endblock %}  

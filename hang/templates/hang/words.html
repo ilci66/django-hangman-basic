@@ -1,21 +1,61 @@
 {% extends "main.html" %}
 {% block content %}
-Gonna lists the words here and add a form
 
+<style>
+    .words-title {
+        font-size: 2.4rem;
+        margin-bottom: 20px;
+    }
+    .words-ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .word-li {
+        margin: 6px 0;
+        border-bottom: 2px solid lightgray;
+        display: flex;
+    }
+    .right-align {
+        margin-left: auto;
+        margin-right: 6px;
+    }
+    .word-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+    input {
+        width: 100%;
+    }
+    .word-submit-btn {
+        width: 100%;
+        margin-top: 8px;
+        border: none;
+        padding: 14px 18px;
+        background-color: blueviolet;
+        color: antiquewhite;
+        font-size: 1.8rem;
+    }
+    .word-submit-btn:hover {
+        cursor: pointer;
+    }
+</style>
+<h2 class="words-title">Words</h2>
 {% if words_list %}
-<ul>
+<ul class="words-ul">
     {% for word in words_list %}
-    <li>
+    <li class="word-li">
         {{ word }}
-        <a href="/words/{{word.id}}/edit">Edit</a>
+        <a class="right-align" href="/words/{{word.id}}/edit">Edit</a>
         <a href="/words/{{word.id}}/delete">Delete</a>
     </li>
     {% endfor %}
 </ul>
 {% endif %}
-<form action="" method="post">
+<form class="word-form" action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <input type="submit" value="Create Word">
+    <input class="word-submit-btn" type="submit" value="Create Word">
 </form>
 {% endblock %}

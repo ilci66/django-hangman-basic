@@ -56,11 +56,7 @@
         border: none;
         margin-right: 50px;
     }
-    ul {
-        list-style-type: none;
-        display: flex;
-        flex-wrap: wrap;
-    }
+
     .active {
         margin: 10px;
         padding: 10px;
@@ -144,7 +140,7 @@
     
     window.addEventListener('click', (e) => {
         
-        if(e.target.classList.contains('ltr-btn')){
+        if(e.target.classList.contains('ltr-btn') && e.target.classList.contains('active')){
 
             e.target.classList.add('passive')
             e.target.classList.remove('active')
@@ -168,13 +164,19 @@
                     
                     console.log("matched")
                     
+
                     if(!found) found = true;
 
                     console.log("selected all => ",document.querySelectorAll(`.${l}`))
                     
                     document.querySelectorAll(`.${l}`).forEach(x => {
+                        wordLetters.splice(wordLetters.indexOf(l),1)
                         x.style.opacity = "1";
                     })
+                }
+                if(wordLetters.length===0){
+                    alert("you won!")
+                    location.reload()
                 }
             })
             
