@@ -1,83 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
 {% load static %}
-<style>
-    .content-flex {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin: 20px 0px;
-    }
-    .word-container {
-        display:flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-    }
-    .word-display-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-    }
-    .letter-container {
-        position: relative;
-        margin: 10px;
-    }
-    .letter-box {
-        font-size: 2.4rem;
-        margin: 10px;
-        min-width: 50px;
-        text-align: center;
-        opacity: 0;
-    }
-    .bottom-line {
-        content: "";
-        padding: 1px;
-        background-color: aqua;
-        position: absolute;
-        width: 100%;
-        bottom: 0;
-        left: 0;
-        margin-top: 10px;
-    }
-    .display-word {
-        font-size: 2rem;
-        text-transform: uppercase;
-        color: aqua;
-        margin: auto 20px auto 0;
-    }
-    .display-btn{
-        background-color: aqua;
-        border-radius: 15px;
-        padding: 15px 30px;
-        font-size: 1.6rem;
-        transition: 0.3s;
-        border: none;
-        margin-right: 50px;
-    }
-
-    .active {
-        margin: 10px;
-        padding: 10px;
-        transition: 0.3s;
-        border-radius: 10px;
-        background-color: aqua;
-    }
-    .passive {
-        margin: 10px;
-        padding: 10px;
-        transition: 0.3s;
-        border-radius: 10px;
-        background-color: darkgray;
-    }
-    .display-btn:hover, .active:hover{
-        background-color: navy;
-        color: white;
-        cursor: pointer;
-        transform: scale(1.2);
-    }
-</style>
+<link rel="stylesheet" href="{% static  'hang/word/word.css' %}">
 <div class="word-display-container">
     <p style="opacity: 0;" class="display-word">{{ random_word.text }}</p>
     <button class="display-btn">Show</button>
@@ -124,7 +48,7 @@
 </ul>
 
 
-<script>
+<script >
     let errCount = 0;
     let wordVisibility = false;
 
@@ -137,7 +61,7 @@
 
     const wordLetters = word.split("")
     console.log(wordLetters)
-    
+
     window.addEventListener('click', (e) => {
         
         if(e.target.classList.contains('ltr-btn') && e.target.classList.contains('active')){
@@ -191,7 +115,7 @@
                 if(errCount===4) str = "{% static 'hang/hangman-5.png' %}"
                 if(errCount===5) str = "{% static 'hang/hangman-6.png' %}"
                 if(errCount===6) str = "{% static 'hang/hangman-7.png' %}"
-                  
+                
                 hangmanImg.src = str
             }
 
@@ -209,8 +133,5 @@
         }
         
     })
-
-    // const listItems = document.querySelectorAll('li')
-
 </script>
 {% endblock %}
